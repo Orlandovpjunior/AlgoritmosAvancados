@@ -1,13 +1,21 @@
 s = list(input())
+
+melhor = ['z'] * len(s)
+melhor[-1] = s[-1]
+for i in range(len(s) - 2, -1, -1):
+    melhor[i] = min(s[i], melhor[i + 1])
+
 t = []
-u = []
+u = [] 
 
-while s or t:
-    if not t:
-        t.append(s.pop(0))
-    elif not s or t[-1] <= s[0]:
+for i in range(len(s)):
+    while t and t[-1] <= melhor[i]:
         u.append(t.pop())
+    if s[i] == melhor[i]:
+        u.append(s[i])
     else:
-        t.append(s.pop(0))
-
-print("".join(u)) 
+        t.append(s[i])
+while t:
+    u.append(t.pop())
+    
+print("".join(u))
