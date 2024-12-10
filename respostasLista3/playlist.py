@@ -8,11 +8,12 @@ contador = 1
 contador_max = 1
 
 while h < tamanho:
-    if entrada[h] not in lista:
-        lista.add(entrada[h])
-        contador += 1
-        h += 1
+    if entrada[h] in lista:
+        lista.remove(entrada[l])
+        l += 1
     else:
-        l = h
-        contador_max = max(contador, contador_max)
-        contador = 1
+        lista.add(entrada[h])
+        h += 1
+        contador_max = max(contador_max, len(lista))
+
+print(contador_max)
