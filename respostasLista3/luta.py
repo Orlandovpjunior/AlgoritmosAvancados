@@ -1,33 +1,42 @@
 from queue import Queue
 
-repeticoes = int(input())
+def calculaVitorias(Arrlutadores):
+    dic = {i + 1: [0, 0] for i in range(len(Arrlutadores))}
 
-for i in range(repeticoes):
-    qtde, perguntas = list(map(int, input().split()))
-    jogadores = list(map(int, input().split()))
-    q = Queue()
+    lutador = Arrlutadores[0]
+    jogador, rodadas = list(map(int, input().split()))
 
-    for j in range(1, qtde):
-        q.put(jogadores[j])
+    maior = max(Arrlutadores)
+    indice_maior = Arrlutadores.index(maior) + 1
+    if jogador > indice_maior:
+        return 0
+    else:
+        contadorRodadas = 1
+        while contadorRodadas <= rodadas:
+            topo = fila.get()
+
+            if lutador > topo:
+                fila.put(topo)
+                dic[Arrlutadores.index(lutador) + 1][0] += 1
+                dic[Arrlutadores.index(lutador) + 1][1] += 1
+            else:
+                fila.put(lutador)
+                lutador = topo
+                dic[Arrlutadores.index(lutador) + 1][0] += 1
+                dic[Arrlutadores.index(lutador) + 1][1] += 1
+
+            contadorRodadas += 1
+
+        return dic[jogador][1]
+
+
+entrada = int(input())
+for i in range(entrada):
+    tamanho, perguntas = list(map(int, input().split()))
+    lutadores = list(map(int, input().split()))
+    fila = Queue()
+    for l in lutadores[1:]:
+        fila.put(l)
+    for i in range(perguntas):
+        print(calculaVitorias(lutadores))
     
-    jogador = jogadores[0]
-    for j in range(perguntas):
-        numJogador, rounds = list(map(int, input().split()))
-        dicionario = dict()
-
-        atual = q.get()
-
-        if jogador > atual:
-            q.put(atual)
-            if jogador not in dicionario:
-                dicionario[jogador] = 1
-            else:
-                dicionario[jogador] += 1
-        else:
-            q.put(jogador)
-            jogador = atual
-            if atual not in dicionario:
-                dicionario[atual] = 1
-            else:
-                dicionario[atual] += 1
-        print(dicionario)
