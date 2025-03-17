@@ -1,33 +1,37 @@
 from collections import deque
 
 grafo = {
-    'voce': ['alice', 'bob', 'claire'],
-    'bob': ['anuj', 'peggy'],
-    'alice': ['peggy'],
-    'claire': ['thom', 'jonny'],
-    'anuj': [],
-    'peggy': [],
-    'thom': [],
-    'jonny': []
+    1: [2, 3],
+    2: [4, 5],
+    3: [6, 7],
+    4: [8, 9],
+    5: [],
+    6: [10],
+    7: [],
+    8: [],
+    9: [],
+    10: []
 }
 
-def pessoa_e_vendedor(nome):
-    return nome[-1] == 'm'
+def verifica_num(numero):
+    return numero == 10
 
-def pesquisa(nome):
+def pesquisa(numero):
     lista_pesquisa = deque()
-    lista_pesquisa += grafo[nome]
+    lista_pesquisa.append(numero)
     verificados = set()
 
     while lista_pesquisa:
-        pessoa = lista_pesquisa.popleft()
-        if pessoa not in verificados:
-            if pessoa_e_vendedor(pessoa):
-                print(pessoa + " é um vendedor de manga")
+        v = lista_pesquisa.popleft()
+        if v not in verificados:
+            if verifica_num(numero):
+                print(f"{v} Existe no grafo")
                 return True
             else:
-                lista_pesquisa += grafo[pessoa]
-                verificados.add(pessoa)
+                lista_pesquisa.append(grafo[v])
+                verificados.add(v)
     return False
 
-print(pesquisa('voce'))
+print(pesquisa(10))
+
+
