@@ -1,0 +1,8 @@
+def backtrack(caminho_atual, estado):
+    if chegou_na_resposta(estado):
+        salvar_resultado()
+        return
+    for escolha in escolhas_possiveis(estado):
+        fazer_escolha(escolha)
+        backtrack(caminho_atual + [escolha], novo_estado)
+        desfazer_escolha(escolha)
